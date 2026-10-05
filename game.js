@@ -1,6 +1,6 @@
 'use strict';
 
-const VERSION = 'v19.0';
+const VERSION = 'v19.1';
 
 // ============================================================
 //  Re:EthePath —— 以太之路 (v3.0 主菜单 · 图鉴祈愿 · 100卡)
@@ -108,19 +108,42 @@ function firstTime(key) {
   saveMeta();
   return true;
 }
-function showTip(title, text, then) {
+function showTip(title, text, then) {   // v19.1: 沉浸式提示页(与结算/商店同套 dm-fx 语言), 旧白面板已废
   window._afterTip = then;
-  showPanel(
-    '<div class="panel-box"><h2>' + title + '</h2>' +
-    '<p class="lore big-lore">' + text + '</p>' +
-    '<button class="pbtn big" onclick="tipContinue()">继续</button></div>'
-  );
+  const dkN = hexA => {
+    const n = parseInt(hexA.slice(1), 16);
+    return 'rgb(' + ((n >> 16 & 255) * 0.22 | 0) + ',' + ((n >> 8 & 255) * 0.22 | 0) + ',' + ((n & 255) * 0.22 | 0) + ')';
+  };
+  let motes = '';
+  for (let i = 0; i < 8; i++)
+    motes += '<i style="left:' + (4 + Math.random() * 92).toFixed(1) + '%;bottom:-2%;' +
+      'animation-duration:' + (9 + Math.random() * 9).toFixed(1) + 's;animation-delay:' + (Math.random() * 8).toFixed(1) + 's"></i>';
+  const old = qs('.tip-fx');
+  if (old && old.remove) old.remove();
+  const fx = document.createElement('div');
+  fx.className = 'dm-fx tip-fx';
+  fx.innerHTML =
+    '<div class="dm-veil" style="background:linear-gradient(168deg,' + dkN(BGPAL.grad[0]) + ' 0%,' + dkN(BGPAL.grad[1]) + ' 52%,' + dkN(BGPAL.grad[2]) + ' 100%)"></div>' +
+    '<div class="dm-glow" style="background:radial-gradient(circle at 50% 42%, rgba(' + BGPAL.beam + ',0.16), transparent 62%)"></div>' +
+    '<div class="dm-motes">' + motes + '</div>' +
+    '<div class="dm-core">' +
+      '<h2 class="dm-title">' + title.split('').map((ch, i) =>
+        '<span style="--di:' + i + '">' + ch + '</span>').join('') + '</h2>' +
+      '<p class="dm-lore tip-lore">' + text + '</p>' +
+      '<div class="dm-btns"><button class="dm-btn" onclick="tipContinue()">继续</button></div>' +
+    '</div>';
+  document.body.appendChild(fx);
+  requestAnimationFrame(() => fx.classList.add('go'));
 }
 function tipContinue() {
-  hidePanel();
+  const fx = qs('.tip-fx');
+  if (fx && fx.classList) {
+    fx.classList.add('out');
+    setTimeout(() => { const f2 = qs('.tip-fx'); if (f2 && f2.remove) f2.remove(); }, 480);
+  }
   const f = window._afterTip;
   window._afterTip = null;
-  if (f) f();
+  if (f) setTimeout(f, 360);   // 等纱幕淡出再进战斗, 不叠影
 }
 const TIP_BATTLE = '上方是敌人的<b>当前意图</b>，图标下的小字是<b>下回合动作</b>。<br>点击敌人或按 Tab 切换目标；空格打出选中牌，数字键直出，回车结束回响。<br>屏障只在本回响有效——别囤。';
 const TIP_ELITE = '前方是<b>凶残响</b>：更硬、更痛、成长更快。<br>奖励也更丰厚（稀有度加成）。评估一下血量和卡组，再决定要不要绕开。';
