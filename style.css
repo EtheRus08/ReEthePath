@@ -2077,6 +2077,11 @@ body.gcursor, body.gcursor * { cursor: none !important; }
 #boot.clear .bt-glowpulse,
 #boot.clear .bt-feathers,
 #boot.clear .bt-ripple { opacity: 0; transition: opacity 0.6s; }
+#boot.clear .bt-anykey {   /* v19.3: 按键即刻消散(上浮+模糊+淡出 0.35s), 不再跟着 boot 层留到 1120ms */
+  animation: none;
+  opacity: 0; transform: translateY(-10px); filter: blur(3px);
+  transition: opacity 0.35s ease-in, transform 0.35s ease-in, filter 0.35s ease-in;
+}
 /* 细雪(v16.4): 外 i 垂直落+透明度, 内 b 横摆, 纯 transform/opacity; 三层景深克制 */
 .bt-snow { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .bt-snow i {
