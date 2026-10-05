@@ -2237,7 +2237,11 @@ body.gcursor, body.gcursor * { cursor: none !important; }
   opacity: 0; transition: opacity 0.7s;
   pointer-events: none;
 }
-.bt-anykey.show { opacity: 1; animation: hintPulse 1.9s ease-in-out infinite; }
+.bt-anykey.show { animation: anykeyIn 1s cubic-bezier(0.2, 0.8, 0.25, 1) both, hintPulse 1.9s ease-in-out 1s infinite; }   /* v19.1: 先进场再脉动 */
+@keyframes anykeyIn {
+  from { opacity: 0; transform: translateY(16px); letter-spacing: 18px; filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    letter-spacing: 8px;  filter: blur(0); }
+}
 /* 标题: 逐字入场(缩放+模糊+上浮收拢, 错峰), 就位后渐变层覆盖+流光+呼吸光晕
    注意: background-clip:text 与「子字符 transform/filter 动画」共存会让 Chromium 裁剪错乱
    (字符被裁到同一位置堆叠) —— 所以渐变放在静态覆盖层 .bt-grad, 字符层用纯色 */
@@ -2344,6 +2348,15 @@ body.gcursor, body.gcursor * { cursor: none !important; }
 .dm-fx.victory .dm-lore { color: #d8c9a8; }
 .dm-fx .dm-lore.dm-rand, .dm-fx .dm-lore.dm-end { font-size: 12.5px; color: #78829f; animation-delay: 1.7s; }
 @keyframes dmFade { to { opacity: 1; } }
+/* 初战/精英/商店初见提示(v19.1 沉浸层) */
+.tip-fx .tip-lore {
+  max-width: min(620px, 84vw); margin: 22px auto 28px;
+  font-size: 15.5px; line-height: 2.1; letter-spacing: 2px;
+  color: #cfd8f0; text-align: center; font-style: normal;
+  opacity: 0; animation: dmFade 0.7s ease-out 0.55s forwards;
+}
+.tip-fx .tip-lore b { color: #ffffff; text-shadow: 0 0 14px rgba(180, 200, 255, 0.65); font-weight: 600; }
+.dm-fx.tip-fx .dm-btn { animation: dmFade 0.6s ease-out 0.85s backwards, stGoBreathe 2.6s ease-in-out 0.85s infinite; }   /* 双类抬优先级: .dm-fx .dm-btn 定义在后, 单类会被压(踩过的坑) */
 /* 数据条: 通透竖条, 错峰上浮 */
 .dm-fx .dm-stats {
   display: flex; gap: 14px; justify-content: center;
