@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Re:EthePath</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=18.9">
+<link rel="stylesheet" href="style.css?v=18.9">
+</head>
+<body>
+
+<div id="hud">
+  <div class="hud-left">
+    <div class="bar-label">澪奈 <span id="hpText">50/50</span></div>
+    <div class="bar hp-bar"><div id="hpFill"></div></div>
+    <div class="bar-label">以太 <span id="energyText">3/3</span> <span id="buffText"></span></div>
+    <div class="bar energy-bar"><div id="energyFill"></div></div>
+    <div id="blockText">屏障: 0</div>
+    <div id="playerStatus" class="status-row"></div>
+  </div>
+  <div class="hud-center">
+    <div id="turnText">回响 1</div>
+    <div id="intentText">残响意图: 攻击 7</div>
+  </div>
+  <div class="hud-right">
+    <div class="bar-label"><span id="enemyName">残响 · 虚空造物</span> <span id="enemyHpText">120/120</span></div>
+    <div class="bar enemy-bar"><div id="enemyHpFill"></div></div>
+    <div id="enemyDmgInfo">侵蚀力: 7</div>
+    <div id="enemyStatus" class="status-row"></div>
+  </div>
+</div>
+
+<canvas id="game"></canvas>
+
+<div id="log"></div>
+<div id="pileInfo">结晶 0 · 记忆 0 · 残片 0 · 消散 0</div>
+<div id="handTray"></div>
+<div id="playerTags"></div>
+<div id="deckPile" class="pile"><div class="plabel">牌堆</div><div class="pback"></div><div class="pcount" id="deckCount">0</div></div>
+<div id="discardPile" class="pile"><div class="plabel">弃牌</div><div class="pback alt"></div><div class="pcount" id="discCount">0</div></div>
+<div id="hand"></div>
+<button id="endTurnBtn">结束回响 ⏎</button>
+<button id="pauseBtn" style="display:none">⏸</button>
+
+<div id="fx"></div>
+<div id="banner"></div>
+<div id="vignette"></div>
+<div id="cardPreview" class="hidden"></div>
+
+<div id="panel" class="hidden"></div>
+
+<div id="overlay">
+  <div id="overlay-box">
+    <h1>Re:EthePath</h1>
+    <p class="sub">— 以太之路 · 原型 v0.7 —</p>
+    <p>少女「澪奈」在回家的路上，坠入了平行宇宙之间的虚无。<br>
+       这里没有天空，没有大地，只有无数死去宇宙留下的「残响」。<br>
+       她唯一能做的，是握着记忆的碎片向上战斗——<br>
+       穿过十层虚无，突破元宇宙的边界，找到回家的路。</p>
+    <p id="startLore" class="lore"></p>
+    <p class="hint">战斗 / 商店 / 异象 / 锚点 —— 每层由你抉择<br>
+       点击手牌 或 按 <b>1 ~ 6</b> 出牌 · <b>回车</b> 结束回响</p>
+    <button id="startBtn">踏上以太之路</button>
+  </div>
+</div>
+
+<script src="bgm_data.js?v=18.9"></script>
+<script src="game.js?v=18.9"></script>
+</body>
+</html>
