@@ -1,6 +1,6 @@
 'use strict';
 
-const VERSION = 'v18.9';
+const VERSION = 'v19.0';
 
 // ============================================================
 //  Re:EthePath —— 以太之路 (v3.0 主菜单 · 图鉴祈愿 · 100卡)
@@ -750,8 +750,8 @@ const ENEMY_SPECIES = [
 function loadJSON(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
 function saveJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 
-const SETTINGS = Object.assign({ sfx: false, shake: true, fx: true, dn: true, chant: true, bgm: true, cursor: true }, loadJSON('re_settings_v2', {}));
-function saveSettings() { saveJSON('re_settings_v2', SETTINGS); }
+const SETTINGS = Object.assign({ sfx: true, shake: true, fx: true, dn: true, chant: true, bgm: true, cursor: true }, loadJSON('re_settings_v3', {}));   // v19.0: 音效默认开(v3 强制重置, 新玩家直接有声)
+function saveSettings() { saveJSON('re_settings_v3', SETTINGS); }
 
 let META = loadJSON('re_meta', null) || { frags: 0, unlocked: [] };
 META.unlocked = Array.from(new Set([...CARD_POOL.slice(0, BASE_COUNT).map(c => c.name), ...(META.unlocked || [])]));
