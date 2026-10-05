@@ -577,53 +577,23 @@ body { position: fixed; inset: 0; }   /* v16.8: 根级滚动从布局上不可�
 /* ---------- 覆盖层 ---------- */
 #overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(rgba(240, 243, 250, 0.92), rgba(230, 234, 243, 0.96));
+  background: radial-gradient(ellipse at 50% 42%, #10162e 0%, #05070f 75%);   /* v19.2: 加载等待层改深空风(原白纱卡是 v0.7 残留) */
   backdrop-filter: blur(6px);
   display: flex; justify-content: center; align-items: center;
   z-index: 20;
 }
 #overlay.hidden { display: none; }
-#overlay-box {
-  max-width: 560px; text-align: center;
-  padding: 46px 54px;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(120, 140, 180, 0.18);
+.boot-pre { text-align: center; }
+.boot-pre-cry {
+  display: block; width: 26px; height: 40px; margin: 0 auto 20px;
+  background: linear-gradient(160deg, #e8f0ff, #7fa8e8 70%);
+  clip-path: polygon(50% 0, 100% 32%, 50% 100%, 0 32%);
+  filter: drop-shadow(0 0 14px rgba(150, 190, 255, 0.8));
+  animation: bootPreCry 1.6s ease-in-out infinite;
 }
-#overlay-box h1 {
-  font-size: 40px; font-weight: 300; letter-spacing: 8px;
-  background: linear-gradient(90deg, #6a9ee8, #a87ae0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 8px;
-}
-#overlay-box .sub { color: #98a2b8; margin-bottom: 22px; letter-spacing: 2px; }
-#overlay-box p { font-size: 14px; line-height: 1.95; color: #5a6478; margin-bottom: 12px; }
-#overlay-box .lore {
-  color: #8a96c0; font-style: italic; font-size: 13px;
-  border-left: 3px solid rgba(143, 200, 255, 0.5); padding-left: 12px;
-  text-align: left; margin: 16px 0;
-}
-#overlay-box .hint { color: #98a2b8; font-size: 13px; }
-#startBtn {
-  margin-top: 16px;
-  font-size: 17px; font-weight: bold; letter-spacing: 5px;
-  padding: 14px 52px;
-  color: #ffffff;
-  background: linear-gradient(90deg, #8fc8ff, #b8a8f0);
-  border: none; border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(130, 160, 230, 0.4);
-  transition: transform 0.14s, box-shadow 0.14s;
-}
-#startBtn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 32px rgba(130, 160, 230, 0.55);
-}
-
+@keyframes bootPreCry { 50% { transform: translateY(-6px); filter: drop-shadow(0 0 26px rgba(180, 210, 255, 1)); } }
+.boot-pre-t { color: #cfd8f0; font-weight: 300; letter-spacing: 12px; padding-left: 12px; font-size: 24px; }
+.boot-pre-s { color: #5a6488; font-size: 12px; letter-spacing: 5px; margin-top: 10px; }
 /* ---------- 面板 ---------- */
 .hidden { display: none !important; }
 
